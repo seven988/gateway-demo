@@ -31,7 +31,7 @@ import java.nio.charset.Charset;
  * To change this template use File | Settings | File Templates.
  * Description:
  */
-@Component
+//@Component
 public class CommonsFilter implements GlobalFilter,Ordered {
     Logger logger = LoggerFactory.getLogger(CommonsFilter.class);
     private static final String START_TIME = "startTime";

@@ -25,7 +25,7 @@ import java.util.regex.Pattern;
  * To change this template use File | Settings | File Templates.
  * Description:
  */
-@Component
+//@Component
 public class RewriteRequestUrlFilter implements GlobalFilter, Ordered {
 
     private static final Log log = LogFactory.getLog(RouteToRequestUrlFilter.class);
@@ -59,7 +59,10 @@ public class RewriteRequestUrlFilter implements GlobalFilter, Ordered {
             if("lb".equalsIgnoreCase(routeUri.getScheme()) && routeUri.getHost() == null) {
                 throw new IllegalStateException("Invalid host: " + routeUri.toString());
             } else {
-                URI mergedUrl = UriComponentsBuilder.fromUri(uri).scheme(routeUri.getScheme()).host(routeUri.getHost()).port(routeUri.getPort()).path(routeUri.getRawPath()).build(encoded).toUri();
+                URI mergedUrl = UriComponentsBuilder.fromUri(uri).scheme(routeUri.getScheme())
+                        .host(routeUri.getHost()).port(routeUri.getPort())
+                        .path(routeUri.getRawPath()) //从routeURI获取请求路径
+                        .build(encoded).toUri();
                 exchange.getAttributes().put(ServerWebExchangeUtils.GATEWAY_REQUEST_URL_ATTR, mergedUrl);
                 return chain.filter(exchange);
             }
